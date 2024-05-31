@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "241853979250",
+    "project_id": "gradebookmangementfirebase",
+    "storage_bucket": "gradebookmangementfirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241853979250:android:08643850f25e23635cc0eb",
+        "android_client_info": {
+          "package_name": "com.example.grade_book_management"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCelzZVKeXz4Gh0qNK3CVNv_SFD-nvjcUQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
