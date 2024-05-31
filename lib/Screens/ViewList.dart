@@ -31,7 +31,10 @@ class _ViewListState extends State<ViewList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('View List'),
+        title: Text('View List',
+        style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.blue,
       ),
       body: SingleChildScrollView(
         child: DataTable(

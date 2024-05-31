@@ -1,30 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:grade_book_management/Screens/Signup.dart';
-// import 'package:firebase_core/firebase_core.dart';
-import 'Screens/DashBoard.dart';
+import 'package:grade_book_management/main.dart';
 
 void main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
-  runApp(LoginApp());
+  runApp(SignupApp());
 }
 
-class LoginApp extends StatelessWidget {
+class SignupApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Login Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.white,
-          titleTextStyle: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
+      title: 'Signup Demo',
       home: LoginPage(),
       debugShowCheckedModeBanner: false,
     );
@@ -40,6 +25,8 @@ class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   bool _obscurePassword = true;
 
   void _togglePasswordVisibility() {
@@ -48,34 +35,20 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  void _login() {
+  void _signup() {
     if (_formKey.currentState!.validate()) {
-      String username = _usernameController.text;
-      String password = _passwordController.text;
-
-      // Implement your authentication logic here
-      // For demonstration purposes, we'll just print the credentials
-      print('Username: $username');
-      print('Password: $password');
-
-      // Clear text fields after submission
-      _usernameController.clear();
-      _passwordController.clear();
-
-      // You can add your authentication logic here, such as calling an API
-      // or checking credentials against a database
-
-      // After successful authentication, navigate to the Dashboard screen
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Dashboard()),
-      );
+      // Implement your sign-up logic here
+      print('Username: ${_usernameController.text}');
+      print('Password: ${_passwordController.text}');
+      print('Confirm Password: ${_confirmPasswordController.text}');
     }
   }
 
-  void _register() {
-    // Handle registration logic here
-    print('Navigate to registration page');
+  void _navigateToLogin() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => LoginApp()),
+    );
   }
 
   @override
@@ -97,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   SizedBox(height: 20),
                   Text(
-                    'Transcript',
+                    'Sign Up Here',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -150,6 +123,36 @@ class _LoginPageState extends State<LoginPage> {
                     },
                   ),
                   SizedBox(height: 20),
+                  TextFormField(
+                    controller: _confirmPasswordController,
+                    decoration: InputDecoration(
+                      labelText: 'Confirm Password',
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscurePassword
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                        ),
+                        onPressed: _togglePasswordVisibility,
+                      ),
+                    ),
+                    obscureText: _obscurePassword,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please confirm your password';
+                      }
+                      if (value != _passwordController.text) {
+                        return 'Passwords do not match';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(height: 20),
                   TextButton(
                     onPressed: () {
                       // Handle forgot password
@@ -161,10 +164,37 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
+                   SizedBox(height: 12),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                         'Already have an account?',
+                        style: TextStyle(
+                          color: Colors.grey,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginApp()),
+                          );
+                        },
+                        child: Text(
+                          'Login here',
+                          style: TextStyle(
+                            color: Colors.blue,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: _login,
-                    child: Text('Login'),
+                    onPressed: _signup,
+                    child: Text('Sign Up'),
                     style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.all<Color>(Colors.black),
@@ -179,41 +209,14 @@ class _LoginPageState extends State<LoginPage> {
                       overlayColor: MaterialStateProperty.resolveWith<Color?>(
                         (Set<MaterialState> states) {
                           if (states.contains(MaterialState.hovered))
-                            return Colors.grey[800];
+                            return Colors.grey[700];
                           if (states.contains(MaterialState.focused) ||
                               states.contains(MaterialState.pressed))
-                            return Colors.grey[700];
+                            return Colors.blue[800];
                           return null;
                         },
                       ),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Don\'t have an account? ',
-                        style: TextStyle(
-                          color: Colors.grey,
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SignupApp()),
-                          );
-                        },
-                        child: Text(
-                          'Register here',
-                          style: TextStyle(
-                            color: Colors.blue,
-                          ),
-                        ),
-                      ),
-                    ],
                   ),
                 ],
               ),

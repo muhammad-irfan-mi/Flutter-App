@@ -21,15 +21,26 @@ class DetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Details'),
+        title: Text('Details',
+        style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.blue,
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.asset(imagePath), // Display the image
-            SizedBox(height: 20),
+          children: [ 
+             Center(
+              child: SizedBox(
+                width: 100,
+                height: 100,
+                child: Image.asset(
+                  'assets/login.png',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
             Text('Name: $name'),
             SizedBox(height: 10),
             Text('Roll Number: $rollNo'),
